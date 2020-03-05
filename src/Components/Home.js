@@ -21,6 +21,9 @@ export default class Home extends Component {
     })
   })
 }
+componentDidUpdate() {
+  this.refreshList()
+}
 addModalClose = () => {
   this.setState({
     addModalshow:false

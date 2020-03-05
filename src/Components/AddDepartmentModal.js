@@ -16,7 +16,7 @@ export default class AddDepartmentModal extends Component {
     })
     .then(res=>res.json())
     .then(data=>{
-    console.log(data)
+        return data
   }).then(error => console.log(error))
   }
   render() {
