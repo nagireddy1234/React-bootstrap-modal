@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
-import {Modal,Button,Form} from 'react-bootstrap'
+import {Modal,Button,Form} from 'react-bootstrap';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 export default class AddDepartmentModal extends Component {
 
+    state={
+      snackbarOpen:false,
+      snackMessage:""
+    }
+
+    snackbarClose = ()=>{
+      this.setState({snackbarOpen:false})
+    }
+    
   handleSubmit = (e) =>{
     e.preventDefault();
     const URL=`https://jsonplaceholder.typicode.com/users`;
@@ -12,16 +24,34 @@ export default class AddDepartmentModal extends Component {
         'Content-Type': 'application/json'
       },
       method: "POST",
-      body: JSON.stringify({name:e.target.name.value, email:e.target.email.value})
+      body: JSON.stringify({id:null, name:e.target.name.value, email:e.target.email.value })
     })
     .then(res=>res.json())
     .then(data=>{
-        return data
+      this.setState({
+        snackbarOpen:true,
+        snackMessage:"item added"
+      })
+       return this.props.hello(data)
   }).then(error => console.log(error))
   }
   render() {
     return (
       <>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        open={this.state.snackbarOpen}
+        autoHideDuration={3000}
+        onClose={this.snackbarClose}
+        message={<span id="message-id">{this.state.snackMessage} </span>}
+        action = {
+          <IconButton size="small" aria-label="close" color="inherit" onClick={this.handleClose}>
+            {this.state.snackMessage} <CloseIcon fontSize="small" />
+        </IconButton>
+        } />
       <Modal {...this.props}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"

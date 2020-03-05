@@ -10,12 +10,12 @@ import {
 } from "react-router-dom";
 import './App.css';
 
+
 function App() {
   return (
     <>
     <div className="container App">
-     <h1 className="d-flex m-3 justify-content-center"> Welcome to Employment Portal.</h1>
-     
+     <h1 className="d-flex m-3 justify-content-center"> Welcome to Employment Portal.</h1> 
     <Navigation />
      <Router>
         <Switch>

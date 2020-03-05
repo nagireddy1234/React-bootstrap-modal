@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Table,ButtonToolbar,Button } from 'react-bootstrap';
-import AddDepartmentModal from './AddDepartmentModal'
+import AddDepartmentModal from './AddDepartmentModal';
+import EditDepartmentModal from './EditDepartmentModal';
 
 export default class Home extends Component {
-
   state={
     UsersList:[],
     addModalshow: false,
@@ -21,16 +21,21 @@ export default class Home extends Component {
     })
   })
 }
-componentDidUpdate() {
-  this.refreshList()
-}
+
 addModalClose = () => {
   this.setState({
     addModalshow:false
     })
 }
-
-  render() {     
+hello = (data)=>{
+  const newArray = this.state.UsersList;
+  newArray.push(data)
+   this.setState({
+     UsersList:newArray
+   })
+   console.log(newArray)
+}
+  render() {    
     return (
       <div>
         <h1 className="d-flex m-3 justify-content-center"> this is home page</h1>
@@ -52,6 +57,7 @@ addModalClose = () => {
                <td>
                  {user.email}
                </td>
+               <td> <EditDepartmentModal /> </td>
              </tr>)
             })}
           </tbody>
@@ -61,7 +67,7 @@ addModalClose = () => {
               addModalshow:true
             })}>Add Details</Button>
         </ButtonToolbar>
-        <AddDepartmentModal show={this.state.addModalshow} onHide={this.addModalClose}/>
+        <AddDepartmentModal show={this.state.addModalshow} onHide={this.addModalClose} hello={this.hello}/>
       </div>
     )
   }
